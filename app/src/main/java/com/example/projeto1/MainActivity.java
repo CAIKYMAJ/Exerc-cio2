@@ -5,8 +5,11 @@ import static com.example.projeto1.R.*;
 import static java.util.Arrays.*;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     boolean isFirst = true;
     TextView resposta;
+    Button trocar_tela;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -43,11 +48,23 @@ public class MainActivity extends AppCompatActivity {
 
         resposta = (TextView) findViewById(R.id.texto7);
 
+        trocar_tela = (Button) findViewById(id.trocar_tela);
+
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        trocar_tela.setOnClickListener(v -> trocarTela());
+    }
+
+    private void trocarTela() {
+        Intent intent = new Intent(MainActivity.this, TelaDois.class);
+        intent.putExtra("numerosOrdenados", resposta.getText().toString());
+        startActivities(new Intent[]{intent});
     }
 
     public void editar(View view) {
